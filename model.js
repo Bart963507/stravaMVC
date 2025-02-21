@@ -3,15 +3,18 @@ import { settings } from "./config.js";
 
 
 
-const body = {
-    "client_id": settings["client_id"],
-    "client_secret": settings["client_secret"],
-    "grant_type": "refresh_token",
-    "refresh_token": settings["refresh_token"],
-    "f": "json"
-}
 
-const getAuth = async function(){
+
+ export const getAuth = async function(){
+
+    const body = {
+      "client_id": settings["client_id"],
+      "client_secret": settings["client_secret"],
+      "grant_type": "refresh_token",
+      "refresh_token": settings["refresh_token"],
+      "f": "json"
+    }
+
     try{
          // Make the GET request using fetch
         const request = await fetch("https://www.strava.com/oauth/token", {
@@ -32,7 +35,7 @@ const getAuth = async function(){
     
 }
 
-export {getAuth}
+
 
 
 
@@ -55,7 +58,7 @@ const getAcccesToken = async function () {
 };
 
 // Get the accesstoken with the getAccesToken function
-const getActivities = async function () {
+export const getActivities = async function () {
   try {
     const accessToken = await getAcccesToken();
     // Make the GET request using fetch
@@ -73,7 +76,7 @@ const getActivities = async function () {
   }
 };
 
-const getActivity = async function (activityID) {
+export const getActivity = async function (activityID) {
   try {
     const accessToken = await getAcccesToken();
     const activityUrl = `https://www.strava.com/api/v3/activities/${activityID}`
@@ -92,7 +95,7 @@ const getActivity = async function (activityID) {
   }
 };
 
-const getPhotos = async function (activityID) {
+export const getPhotos = async function (activityID) {
   try {
     const accessToken = await getAcccesToken();
     const activityUrl = `https://www.strava.com/api/v3/activities/${activityID}/photos?size=5000`
