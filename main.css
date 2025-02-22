@@ -1,0 +1,207 @@
+* {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.stats{
+  order: 2;
+}
+
+.flex-container {
+  display: none;
+  flex-wrap: wrap; /* Allow wrapping of images */
+  justify-content: space-around; /* Spread images evenly with space between */
+  align-items: center; /* Center images vertically */
+  order: 3;
+}
+
+div.gallery img {
+  max-width:20vw;
+  height: auto;
+  max-height: 20vh;
+}
+
+div.gallery {
+  margin: 5px;
+  border: 5px solid #fffdfd;
+  max-width: 25vw;
+  max-height: 25vh;
+  flex: 0 0 32%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.gallery:hover {
+  border: 5px solid #474747;
+}
+
+
+.close-button{
+  order: 1;
+  position: sticky;
+  right: 10px;
+  top: 10px;
+  margin: 20px;
+  cursor: pointer;
+  display:block;
+  text-align: center;
+  width: fit-content;
+  margin-left: auto;
+}
+
+#map{
+  z-index:1;
+  position: relative
+}
+
+#detail-view {
+  position: absolute; /* Position it relative to the nearest positioned ancestor (the body in this case) */
+  bottom: 0; /* Position it at the bottom of the screen */
+  right: 0; /* Position it at the right side of the screen */
+  z-index: 2;
+  background-color: white;
+  display: none;
+  overflow-Y: scroll;
+  max-height: 50vh;
+  flex-direction: column; /* Stack items vertically */
+  background-color: #f0f0f0;
+  
+}
+
+.detail-component {
+  margin: 10px;
+  padding: 16px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.center {
+    width: 80vw;
+    position: absolute; 
+    right: 0; 
+  }
+
+.left {
+  width: 20vw;
+  overflow:visible;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
+  overflow-y: scroll;
+}
+
+.column {
+  float: left;  
+  height: 100vh;
+}
+
+#sidebar > div {
+  width: 100%; 
+}
+
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  overflow-y: scroll;
+  height: 100vh;
+  display: block; 
+}
+
+ul li {
+  position: relative;           
+  display: block;               
+  text-align: center;           
+  width: 100%;                                  
+  padding: 10px;                
+  margin-bottom: 15px;          
+  border: 1px solid #ddd;       
+  border-radius: 15px;         
+  overflow: hidden;             
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
+  opacity: 0.8;                 
+  box-sizing: border-box;       
+}
+
+ul li:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.02);
+}
+
+.sideInfoDiv {
+  display: flex;
+  flex-direction: column; 
+}
+
+
+.top-bar {
+  width: 100%;
+  height: 8px; 
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.top-bar-Hike{
+  background-color: red; 
+}
+
+.top-bar-Run{
+  background-color: blue; 
+}
+
+.top-bar-Ride{
+  background-color: green; 
+}
+
+.top-bar-TrailRun{
+  background-color: purple; 
+}
+
+.top-bar-MountainBikeRide{
+  background-color: lightblue; 
+}
+
+
+/*
+.nav-list {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #e2002b;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  align-items: stretch;
+}
+
+.nav-list a {
+  display: flex;
+  padding: 0 20px;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  height: 100%;
+  align-items: center; 
+  justify-content: center; 
+}
+
+.nav-list a:hover {
+  background-color: #aa0523;
+  color: #fff;
+  font-weight: bold; 
+}
+
+.nav-list a.active {
+  background-color: #fff;
+  color: #e2002b;
+  border-bottom: 3px solid #e2002b; 
+}
+*/
