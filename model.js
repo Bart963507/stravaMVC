@@ -34,8 +34,9 @@ import { settings , params } from "./config.js";
 
 // Define the Strava API endpoint for fetching activities
 const url = "https://www.strava.com/api/v3/athlete/activities";
-const requestParams = { per_page: params.PER_PAGE, page: params.PAGE };
-const queryString = new URLSearchParams(params).toString();
+console.log(params.PER_PAGE)
+const requestParams = { per_page: params["PER_PAGE"], page: params["PAGE"] };
+const queryString = new URLSearchParams(requestParams).toString();
 const fullUrl = `${url}?${queryString}`;
 
 
