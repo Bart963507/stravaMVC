@@ -60,7 +60,7 @@ export const getActivities = async function (accessToken) {
 
 export const init = async function (){
   const accessToken = await getAuth();
-  await getActivities(accessToken);
+  return (await getActivities(accessToken));
 }
 
 

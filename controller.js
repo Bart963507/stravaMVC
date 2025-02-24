@@ -8,16 +8,20 @@ const controller = {
   async init() {
       console.log("Controller initializing...");
 
-      // Step 1: Initialize the Model
-      await model.init();
+      // Step 1: Initialize the Model and save the activities in a variable
+      const activities = await model.init();
 
-      // Step 2: Initialize Views
+      // Step 2: Initialize MapView
       this.MapView = new MapView();  // Create an instance of MapView
+      const activityLayer= this.MapView.activityLayer
 
-      /*
-      this.sideBarView = new SideBarView();
-      this.sideBarView.init();
-      */
+      // Step 3: Add acitivites to map
+      this.MapView.addActivities(activities, activityLayer);
+
+      // Step 4: Zoom to the last activity
+      this.MapView.zoomToActivity(activities[0])
+
+
   }
 };
 
@@ -26,27 +30,3 @@ document.addEventListener("DOMContentLoaded", () => {
   controller.init();
 });
 
-
-
-//Voorbeeld
-/*const controlLoadSideBar= async function () {
-    try {
-      resultsView.renderSpinner();
-  
-      // 1) Get search query                
-      const query = searchView.getQuery();
-      if (!query) return;
-  
-      // 2) Load search results
-      await model.loadSearchResults(query);
-  
-      // 3) Render results
-      resultsView.render(model.getSearchResultsPage());
-  
-      // 4) Render initial pagination buttons
-      paginationView.render(model.state.search);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  */
