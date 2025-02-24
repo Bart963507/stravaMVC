@@ -4,6 +4,7 @@ class MapView extends View {
     constructor() {
         super(); // Call parent constructor
 
+
         // Initialize map
         this.map = L.map('map').setView([51.505, -0.09], 13);
 
@@ -36,4 +37,4 @@ class MapView extends View {
     }
 }
 
-export default new MapView();
+export default MapView;

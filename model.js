@@ -1,12 +1,12 @@
-import { settings } from "./config.js";
+import { settings , params } from "./config.js";
 
  export const getAuth = async function(){
 
     const body = {
-      "client_id": settings["client_id"],
-      "client_secret": settings["client_secret"],
+      "client_id": settings["CLIENT_ID"],
+      "client_secret": settings["CLIENT_SECRET"],
       "grant_type": "refresh_token",
-      "refresh_token": settings["refresh_token"],
+      "refresh_token": settings["REFRESH_TOKEN"],
       "f": "json"
     }
 
@@ -21,41 +21,31 @@ import { settings } from "./config.js";
     })
      // Parse the response body
     const response = await request.json();
-    return response
+    const accessToken = response["access_token"]
+    // return the accestoken 
+    return accessToken
 
 } catch (err) {
  console.error('Network error:', err);
  return null
     }
-    
 }
 
 
 // Define the Strava API endpoint for fetching activities
 const url = "https://www.strava.com/api/v3/athlete/activities";
-const params = { per_page: 200, page: 1 };
+const requestParams = { per_page: params.PER_PAGE, page: params.PAGE };
 const queryString = new URLSearchParams(params).toString();
 const fullUrl = `${url}?${queryString}`;
 
-// Get the accesstoken with the getAuth function
-export const getAcccesToken = async function () {
-  try {
-    const authResponse = await getAuth();
-    const accessToken = await authResponse["access_token"];
-    return accessToken;
-  } catch {
-    console.error("Network error:", err);
-  }
-};
 
-// Get the accesstoken with the getAccesToken function
-export const getActivities = async function () {
+export const getActivities = async function (accessToken) {
   try {
-    const accessToken = await getAcccesToken();
+
     // Make the GET request using fetch
     const request = await fetch(fullUrl, {
       method: "GET",
-      params: params,
+      params: requestParams,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -67,6 +57,16 @@ export const getActivities = async function () {
   }
 };
 
+
+export const init = async function (){
+  const accessToken = await getAuth();
+  await getActivities(accessToken);
+}
+
+
+
+
+
 export const getActivity = async function (activityID) {
   try {
     const accessToken = await getAcccesToken();
@@ -74,7 +74,7 @@ export const getActivity = async function (activityID) {
     // Make the GET request using fetch
     const request = await fetch(activityUrl, {
       method: "GET",
-      params: params,
+      params: requestParams,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -93,7 +93,7 @@ export const getPhotos = async function (activityID) {
     // Make the GET request using fetch
     const request = await fetch(activityUrl, {
       method: "GET",
-      params: params,
+      params: requestParams,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

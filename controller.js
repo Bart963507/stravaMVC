@@ -1,10 +1,30 @@
 import * as model from './model.js';
-import mapView from './views/recipeView.js';
-import sideBarView from './views/searchView.js';
+import MapView from './views/mapView.js';
+import sideBarView from './views/sideBarView.js';
 
 
 
+const controller = {
+  async init() {
+      console.log("Controller initializing...");
 
+      // Step 1: Initialize the Model
+      await model.init();
+
+      // Step 2: Initialize Views
+      this.MapView = new MapView();  // Create an instance of MapView
+
+      /*
+      this.sideBarView = new SideBarView();
+      this.sideBarView.init();
+      */
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOMContentLoaded - Initializing Controller");
+  controller.init();
+});
 
 
 
