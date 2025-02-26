@@ -105,3 +105,17 @@ export const getPhotos = async function (activityID) {
     console.log(err);
   }
 };
+
+
+export const generatePolyLines = function (activities){
+  const coordinatesArr =[] // These are the coordinates of the encoded polylines that are decoded
+  activities.forEach((activity) => {
+      const encodedPolyline = activity.map.summary_polyline;
+      const coordinates = polyline.decode(encodedPolyline);
+      coordinatesArr.push({
+          "activityID":activity.id,
+          "coords":coordinates
+      })
+  })
+  return coordinatesArr
+}

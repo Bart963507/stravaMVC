@@ -4,7 +4,6 @@ import { setColor, showDetails, highlightObject, highlightSideInfo } from '../he
 class MapView extends View {
     constructor() {
         super(); // Call parent constructor
-        console.log("loading map");
 
         // Initialize map
         this.map = L.map('map').setView([51.505, -0.09], 13);
@@ -31,7 +30,7 @@ class MapView extends View {
         this.borderLayer.clearLayers();
     }
 
-    // Function to add layers (already exists)
+    // Function to add layers 
     addLayers() {
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -39,29 +38,33 @@ class MapView extends View {
         }).addTo(this.map);
     }
 
-    /// For each activity add it to the map and create information and the left.
-    addActivities(activities, activityLayer){
-        const layerArr =[]
-
-        activities.forEach((activity) => {
-         const encodedPolyline = activity.map.summary_polyline;
-         const coordinates = polyline.decode(encodedPolyline);
-         const polylinePath = L.polyline(coordinates, {
+    renderPolyLines(coordinatesArr, activitiesArr){
+        const polyLineArr =[] // These are the polylines that are rendered on the map
+        coordinatesArr.forEach((coordinates) => {
+            const activity = activitiesArr.find((stravaActivity) => stravaActivity.id === coordinates.activityID);
+            const polylinePath = L.polyline(coordinates["coords"], {
             color: setColor(activity.sport_type), 
             ID: activity.id
+        })
+        polylinePath.addTo(this.activityLayer);
+        polyLineArr.push({
+            "activityID":activity.id,
+            "polyline":polylinePath})
     })
-    
-        polylinePath.on("click", (e) => showDetails(activity))
-        layerArr.push(polylinePath)
-        polylinePath.addTo(activityLayer);
-        return layerArr
-        })}
+        return polyLineArr
+    }
 
-    
-  zoomToActivity(activity) {
-    const encodedPolyline = activity.map.summary_polyline;
-    const coordinates = polyline.decode(encodedPolyline);
-    this.map.fitBounds(coordinates);
+    addHandler(polyLineArr, activitiesArr){
+        polyLineArr.forEach((polyLine) => {
+            const activity = activitiesArr.find((stravaActivity) => stravaActivity.id === polyLine.activityID)
+            polyLine["polyline"].on("click", (e) => showDetails(activity))
+        })
+    }
+
+    zoomToActivity(activity) {
+        const encodedPolyline = activity.map.summary_polyline;
+        const coordinates = polyline.decode(encodedPolyline);
+        this.map.fitBounds(coordinates);
   }
 }
 

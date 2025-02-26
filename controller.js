@@ -15,13 +15,17 @@ const controller = {
       this.MapView = new MapView();  // Create an instance of MapView
       const activityLayer= this.MapView.activityLayer
 
-      // Step 3: Add acitivites to map
-      this.MapView.addActivities(activities, activityLayer);
+      // Step 3: Generate the polylines from the strava activities
+      const coordinatesArr = model.generatePolyLines(activities);
+  
+      // Step 4: Render the polylines on the map
+      const polyLineArr = this.MapView.renderPolyLines(coordinatesArr, activities);
 
-      // Step 4: Zoom to the last activity
+      // Step 5: Add eventhandlers to each rendered polyline
+      this.MapView.addHandler(polyLineArr, activities)
+
+      // Step 6: Zoom to the last activity
       this.MapView.zoomToActivity(activities[0])
-      
-
 
   }
 };
