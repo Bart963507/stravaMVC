@@ -70,7 +70,7 @@ export const init = async function (){
 
 export const getActivity = async function (activityID) {
   try {
-    const accessToken = await getAcccesToken();
+    const accessToken = await getAuth();
     const activityUrl = `https://www.strava.com/api/v3/activities/${activityID}`
     // Make the GET request using fetch
     const request = await fetch(activityUrl, {
@@ -89,7 +89,7 @@ export const getActivity = async function (activityID) {
 
 export const getPhotos = async function (activityID) {
   try {
-    const accessToken = await getAcccesToken();
+    const accessToken = await getAuth();
     const activityUrl = `https://www.strava.com/api/v3/activities/${activityID}/photos?size=5000`
     // Make the GET request using fetch
     const request = await fetch(activityUrl, {

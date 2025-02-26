@@ -20,6 +20,7 @@ const controller = {
 
       // Step 4: Zoom to the last activity
       this.MapView.zoomToActivity(activities[0])
+      
 
 
   }

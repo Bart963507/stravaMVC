@@ -1,5 +1,5 @@
 import View from './View.js';
-import { setColor } from '../helpers.js';
+import { setColor, showDetails, highlightObject, highlightSideInfo } from '../helpers.js';
 
 class MapView extends View {
     constructor() {
@@ -42,16 +42,19 @@ class MapView extends View {
     /// For each activity add it to the map and create information and the left.
     addActivities(activities, activityLayer){
         const layerArr =[]
+
         activities.forEach((activity) => {
          const encodedPolyline = activity.map.summary_polyline;
          const coordinates = polyline.decode(encodedPolyline);
          const polylinePath = L.polyline(coordinates, {
-            color: setColor(activity.sport_type), ID: activity.id
+            color: setColor(activity.sport_type), 
+            ID: activity.id
     })
     
         polylinePath.on("click", (e) => showDetails(activity))
         layerArr.push(polylinePath)
         polylinePath.addTo(activityLayer);
+        return layerArr
         })}
 
     
