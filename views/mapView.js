@@ -1,5 +1,6 @@
 import View from './View.js';
-import { setColor, showDetails, highlightObject, highlightSideInfo } from '../helpers.js';
+import { setColor, showDetails, highlightObject, highlightSideInfo, zoomToActivity } from '../helpers.js';
+
 
 class MapView extends View {
     constructor() {
@@ -17,8 +18,15 @@ class MapView extends View {
 
         // Add tile layer
         this.addLayers();
+
+        
     }
 
+
+    getMap() {
+        return this.map; // Provide access to the map
+    }
+    
     // Function to remove highlights (already exists)
     removeHighlights(e) {
         const clickedElement = e.originalEvent.target;
@@ -55,17 +63,12 @@ class MapView extends View {
     }
 
     addHandler(polyLineArr, activitiesArr){
+        console.log(polyLineArr)
         polyLineArr.forEach((polyLine) => {
             const activity = activitiesArr.find((stravaActivity) => stravaActivity.id === polyLine.activityID)
-            polyLine["polyline"].on("click", (e) => showDetails(activity))
+            polyLine["polyline"].on("click", (e) => showDetails(activity, polyLineArr, this.borderLayer))
         })
     }
-
-    zoomToActivity(activity) {
-        const encodedPolyline = activity.map.summary_polyline;
-        const coordinates = polyline.decode(encodedPolyline);
-        this.map.fitBounds(coordinates);
-  }
 }
 
 export default MapView;

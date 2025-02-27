@@ -1,6 +1,7 @@
 import * as model from './model.js';
 import MapView from './views/mapView.js';
-import sideBarView from './views/sideBarView.js';
+import SideBarView from './views/sideBarView.js';
+import { zoomToActivity } from './helpers.js';
 
 
 
@@ -25,7 +26,11 @@ const controller = {
       this.MapView.addHandler(polyLineArr, activities)
 
       // Step 6: Zoom to the last activity
-      this.MapView.zoomToActivity(activities[0])
+      zoomToActivity(activities[0])
+
+      this.SideBarView = new SideBarView();
+
+      this.SideBarView.createSideBareElement(activities)
 
   }
 };

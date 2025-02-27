@@ -18,7 +18,17 @@ export const setColor = function(activity) {
   }
 
 
-  export async function showDetails(activity){
+  export function zoomToActivity(activity) {
+    const map = ""
+    const encodedPolyline = activity.map.summary_polyline;
+    const coordinates = polyline.decode(encodedPolyline);
+    //map.fitBounds(coordinates);
+}
+
+
+
+
+  export async function showDetails(activity, layerArr, borderLayer){
     
     const detailEle = document.querySelector("#detail-view")
     const flexContainer = document.querySelector(".flex-container")
@@ -40,6 +50,7 @@ export const setColor = function(activity) {
     
     const fullActivity = await getActivity(activity["id"])
 
+
     if (fullActivity.photos.count > 0){
         flexContainer.style.display = "flex"
         const photos = await getPhotos(activity["id"]);
@@ -58,23 +69,24 @@ export const setColor = function(activity) {
         flexContainer.style.display = "none"
     }  
      
-    highlightObject(activity)
+    highlightObject(activity, layerArr, borderLayer)
     
 }
 
 
 // Function to highlight a polyline
-export const highlightObject = function(activity){
+export const highlightObject = function(activity, layerArr, borderLayer){
+  console.log(layerArr)
     
   // Find the layer stored in the layer array
-  const clickedLayer = layerArr.find(layer => layer.options["ID"] === activity.id)
+  const clickedLayer = layerArr.find(layer => layer.polyline.options["ID"] === activity.id)
 
   // Clear the layer where the highlights are stored in
   borderLayer.clearLayers()
 
 
   //Add the outline to the map
-  const highlightLayer = L.geoJSON(clickedLayer.toGeoJSON(), {
+  const highlightLayer = L.geoJSON(clickedLayer.polyline.toGeoJSON(), {
       style: {
           weight: 7,
           opacity: 1,
@@ -83,7 +95,7 @@ export const highlightObject = function(activity){
   }).addTo(borderLayer);
 
   //Add the inner polyline to the map
-  const border = L.geoJSON(clickedLayer.toGeoJSON(), {
+  const border = L.geoJSON(clickedLayer.polyline.toGeoJSON(), {
       style: {
           weight:5,
           opacity:1,
