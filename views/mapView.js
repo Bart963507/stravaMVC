@@ -1,5 +1,5 @@
 import View from './View.js';
-import { setColor, showDetails, highlightObject, highlightSideInfo, zoomToActivity } from '../helpers.js';
+import { setColor, showDetails, highlightObject, highlightSideInfo } from '../helpers.js';
 
 
 class MapView extends View {

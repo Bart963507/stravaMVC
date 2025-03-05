@@ -28,7 +28,8 @@ class SideBarView extends View {
     }
 
 
-createSideBareElement(activities){
+createSideBarElements(activities){
+    const elements = []
 //Create top bar element for styling
     activities.forEach((activity) => {
     const topBarDiv = document.createElement("div")
@@ -66,10 +67,12 @@ createSideBareElement(activities){
     sideInfoDiv.append(logoDiv);
     logoDiv.append(logo);
 
+    elements.push(sideInfoDiv)
+    
     //sideInfoDiv.addEventListener("click", () => showDetails(activity));
-    sideInfoDiv.addEventListener("click", () => zoomToActivity(polylinePath, map, activity));
-    this.sideBar.append(sideInfoDiv);
-})}
+})
+
+return elements}
 
 
 

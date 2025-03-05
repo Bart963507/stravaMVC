@@ -18,16 +18,6 @@ export const setColor = function(activity) {
   }
 
 
-  export function zoomToActivity(activity) {
-    const map = ""
-    const encodedPolyline = activity.map.summary_polyline;
-    const coordinates = polyline.decode(encodedPolyline);
-    //map.fitBounds(coordinates);
-}
-
-
-
-
   export async function showDetails(activity, layerArr, borderLayer){
     
     const detailEle = document.querySelector("#detail-view")
