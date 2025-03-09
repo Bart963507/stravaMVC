@@ -38,7 +38,7 @@ const controller = {
       this.SideBarView = new SideBarView();
 
       const sideBarElements = this.SideBarView.createSideBarElements(activities)
-      console.log(sideBarElements)
+      console.log(sideBarElements[0])
 
       const sideBar = document.querySelector('#sidebar')
 
